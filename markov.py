@@ -7,13 +7,11 @@ def open_and_read_file(file_path):
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
-
-    # your code goes here
-    #reading_the_file = open(file_path)
     reading_the_file = open(file_path)
     text_string = reading_the_file.read()
 
-    return text_string #"This should be a variable that contains your file text as one long string"
+    return text_string 
+    #"This should be a variable that contains your file text as one long string"
 
 
 def make_chains(text_string):
@@ -39,7 +37,9 @@ def make_chains(text_string):
             word_list.append(word)
 
     chains = {}
-    # word_three_list = []
+
+    #print "All words:\n %s\n" % (word_list,)    
+    
     for i in range((len(word_list)-2)):
         key = (word_list[i], word_list[i+1])
         word_three = word_list[i+2]  
@@ -50,47 +50,27 @@ def make_chains(text_string):
         else:       
             chains[key].append(word_three)
 
-    # print chains
+    #print "Chains:\n"
+    #import pprint; pprint.pprint(chains)
     return chains
 
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
-    text = ""
-    fake_text = []
+    separator = " "
+
     starting_tuple = choice(chains.keys())
-    fake_text.append(starting_tuple)
+    text = separator.join(starting_tuple)
+    next_tuple = starting_tuple
+
+    while next_tuple in chains:
+        values = chains[next_tuple]
+        random_word = choice(values)
+        text = text + " " + random_word
+        next_tuple = (next_tuple[1], random_word)
     
-    # fake_text.append(random_word)
-
-    while key in chains:
-        random_word = choice(chains[starting_tuple])
-
-        if random_word == key[0]:
-            fake_text.append(key)
-        #break
-
-
-    print fake_text
-
-    # fake_text.append(starting_tuple)
-
-    # print chains[starting_tuple]
-
-    # while chains[key[0]] != "Sam":
-        
-    #     fake_text.append(random_word)
-    #     if random_word == key[0]:
-    #         fake_text.append(key)
-        
-            
-
-    #print fake_text        
-
-    # your code goes here
-    
-    # return text
+    return text
 
 
 input_path = "green-eggs.txt"

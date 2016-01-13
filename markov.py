@@ -39,29 +39,58 @@ def make_chains(text_string):
             word_list.append(word)
 
     chains = {}
+    # word_three_list = []
     for i in range((len(word_list)-2)):
-        if chains[(word_list[i], word_list[i+1])] in chains:
-            chains[(word_list[i], word_list[i+1])] = [word_list[i+2] for word in word_list]
-        else:
-            chains[(word_list[i], word_list[i+1])] = [word_list[i+2]]
+        key = (word_list[i], word_list[i+1])
+        word_three = word_list[i+2]  
 
- 
-    print chains
+        if key not in chains:        
+            chains[key] = [word_three]            
 
+        else:       
+            chains[key].append(word_three)
 
-    # your code goes here
-
-    #return chains
+    # print chains
+    return chains
 
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
     text = ""
+    fake_text = []
+    starting_tuple = choice(chains.keys())
+    fake_text.append(starting_tuple)
+    
+    # fake_text.append(random_word)
+
+    while key in chains:
+        random_word = choice(chains[starting_tuple])
+
+        if random_word == key[0]:
+            fake_text.append(key)
+        #break
+
+
+    print fake_text
+
+    # fake_text.append(starting_tuple)
+
+    # print chains[starting_tuple]
+
+    # while chains[key[0]] != "Sam":
+        
+    #     fake_text.append(random_word)
+    #     if random_word == key[0]:
+    #         fake_text.append(key)
+        
+            
+
+    #print fake_text        
 
     # your code goes here
-
-    return text
+    
+    # return text
 
 
 input_path = "green-eggs.txt"
